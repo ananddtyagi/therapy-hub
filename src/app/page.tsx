@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import Image from 'next/image'
 
 export default function TherapyHub() {
   const [email, setEmail] = useState("")
@@ -66,8 +67,17 @@ export default function TherapyHub() {
       </header>
 
       <main>
-        <section className="py-20 text-center bg-blue-600 text-white">
-          <div className="container mx-auto px-4">
+        <section className="py-20 text-center bg-blue-600 text-white relative overflow-hidden">
+          <div className="absolute inset-0 z-0 opacity-20">
+            <Image
+              src="/meeting-pod.webp"
+              alt="TherapyHub Meeting Pod"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
             <h2 className="text-4xl font-bold mb-4">Combat Isolation, Embrace Community</h2>
             <p className="text-xl mb-8">TherapyHub: Where remote therapists find connection, support, and a perfect balance of privacy and community.</p>
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100" onClick={scrollToWaitlist}>Join Our Community</Button>
@@ -77,43 +87,99 @@ export default function TherapyHub() {
         <section id="features" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-12 text-center text-blue-600">Our Features</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader className="bg-blue-100">
-                  <CardTitle className="text-blue-600">Private Calling Rooms</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  Soundproof rooms for your online sessions, ensuring client confidentiality while you work alongside peers.
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader className="bg-green-100">
-                  <CardTitle className="text-green-600">Community Spaces</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  Break the isolation of remote work. Connect, share experiences, and build a supportive network with fellow therapists.
-                </CardContent>
-              </Card>
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader className="bg-yellow-100">
-                  <CardTitle className="text-yellow-600">Complimentary Amenities</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  Enjoy free coffee, snacks, and essentials. Focus on your practice while we take care of the little things that make a big difference.
-                </CardContent>
-              </Card>
+            <div className="grid md:grid-cols-2 gap-12 mb-16">
+              <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
+                <Image
+                  src="/meeting-pod.webp"
+                  alt="Modern meeting pod for private therapy sessions"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-8">
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="bg-blue-100">
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src="/window.svg"
+                        alt="Private Rooms"
+                        width={32}
+                        height={32}
+                        className="h-8 w-8"
+                      />
+                      <CardTitle className="text-blue-600">Private Calling Rooms</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    Soundproof rooms for your online sessions, ensuring client confidentiality while you work alongside peers.
+                  </CardContent>
+                </Card>
+
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="bg-green-100">
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src="/globe.svg"
+                        alt="Community"
+                        width={32}
+                        height={32}
+                        className="h-8 w-8"
+                      />
+                      <CardTitle className="text-green-600">Community Spaces</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    Break the isolation of remote work. Connect, share experiences, and build a supportive network with fellow therapists.
+                  </CardContent>
+                </Card>
+
+                <Card className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="bg-yellow-100">
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src="/file.svg"
+                        alt="Amenities"
+                        width={32}
+                        height={32}
+                        className="h-8 w-8"
+                      />
+                      <CardTitle className="text-yellow-600">Complimentary Amenities</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    Enjoy free coffee, snacks, and essentials. Focus on your practice while we take care of the little things that make a big difference.
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="py-20 bg-gray-100">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-6 text-blue-600">{`You're Not Alone Anymore`}</h2>
-            <p className="text-xl mb-8 text-gray-700">
-              {`As a remote therapist, it's easy to feel isolated. At TherapyHub, you'll find a vibrant community of like-minded professionals.
-              Collaborate, share insights, and grow together while maintaining the flexibility of remote work.`}
-            </p>
-            <Button variant="default" size="lg" className="bg-blue-600 text-white hover:bg-blue-700" onClick={scrollToWaitlist}>Explore Membership Options</Button>
+          <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
+            <div className="text-left">
+              <h2 className="text-3xl font-bold mb-6 text-blue-600">{`You're Not Alone Anymore`}</h2>
+              <p className="text-xl mb-8 text-gray-700">
+                {`As a remote therapist, it's easy to feel isolated. At TherapyHub, you'll find a vibrant community of like-minded professionals.
+                Collaborate, share insights, and grow together while maintaining the flexibility of remote work.`}
+              </p>
+              <Button
+                variant="default"
+                size="lg"
+                className="bg-blue-600 text-white hover:bg-blue-700"
+                onClick={scrollToWaitlist}
+              >
+                Explore Membership Options
+              </Button>
+            </div>
+            <div className="relative h-[400px] rounded-lg overflow-hidden shadow-xl">
+              <Image
+                src="/people-talking.jpg"
+                alt="Therapists collaborating in a community space"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </section>
 
