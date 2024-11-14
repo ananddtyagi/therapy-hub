@@ -68,15 +68,6 @@ export default function TherapyHub() {
 
       <main>
         <section className="py-20 text-center bg-blue-600 text-white relative overflow-hidden">
-          <div className="absolute inset-0 z-0 opacity-20">
-            <Image
-              src="/meeting-pod.webp"
-              alt="TherapyHub Meeting Pod"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
           <div className="container mx-auto px-4 relative z-10">
             <h2 className="text-4xl font-bold mb-4">Combat Isolation, Embrace Community</h2>
             <p className="text-xl mb-8">TherapyHub: Where remote therapists find connection, support, and a perfect balance of privacy and community.</p>
