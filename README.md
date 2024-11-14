@@ -1,3 +1,16 @@
+# TherapyHub
+
+TherapyHub is a co-working space designed specifically for remote therapists, offering a perfect blend of privacy and community. Our spaces feature private calling rooms for confidential client sessions, community areas for professional networking, and all the amenities needed for a productive workday.
+
+## Key Features
+
+- **Private Calling Rooms**: Soundproof spaces for conducting online therapy sessions
+- **Community Spaces**: Areas designed for networking and collaboration with fellow therapists
+- **Complimentary Amenities**: Free coffee, snacks, and essential office supplies
+- **Flexible Pricing**: Options for hourly, daily, or monthly usage
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
