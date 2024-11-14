@@ -1,7 +1,55 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { useState } from "react"
 
 export default function TherapyHub() {
+  const [email, setEmail] = useState("")
+  const [status, setStatus] = useState<{
+    message?: string;
+    error?: string;
+  }>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleWaitlistSubmit = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true)
+    setStatus({})
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to join waitlist');
+      }
+
+      setStatus({ message: 'Successfully joined waitlist!' });
+      setEmail('');
+    } catch (error) {
+      setStatus({
+        error: error instanceof Error ? error.message : 'Failed to join waitlist'
+      });
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const scrollToWaitlist = (e: React.MouseEvent) => {
+    e.preventDefault()
+    document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       <header className="border-b bg-white shadow-sm">
@@ -11,7 +59,7 @@ export default function TherapyHub() {
             <ul className="flex items-center space-x-6">
               <li><a href="#features" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Features</a></li>
               <li><a href="#pricing" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Pricing</a></li>
-              <li><Button variant="outline" size="sm" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">Book Now</Button></li>
+              <li><Button variant="outline" size="sm" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white" onClick={scrollToWaitlist}>Book Now</Button></li>
             </ul>
           </nav>
         </div>
@@ -22,7 +70,7 @@ export default function TherapyHub() {
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold mb-4">Combat Isolation, Embrace Community</h2>
             <p className="text-xl mb-8">TherapyHub: Where remote therapists find connection, support, and a perfect balance of privacy and community.</p>
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">Join Our Community</Button>
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100" onClick={scrollToWaitlist}>Join Our Community</Button>
           </div>
         </section>
 
@@ -60,12 +108,12 @@ export default function TherapyHub() {
 
         <section className="py-20 bg-gray-100">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-6 text-blue-600">You're Not Alone Anymore</h2>
+            <h2 className="text-3xl font-bold mb-6 text-blue-600">{`You're Not Alone Anymore`}</h2>
             <p className="text-xl mb-8 text-gray-700">
-              As a remote therapist, it's easy to feel isolated. At TherapyHub, you'll find a vibrant community of like-minded professionals.
-              Collaborate, share insights, and grow together while maintaining the flexibility of remote work.
+              {`As a remote therapist, it's easy to feel isolated. At TherapyHub, you'll find a vibrant community of like-minded professionals.
+              Collaborate, share insights, and grow together while maintaining the flexibility of remote work.`}
             </p>
-            <Button variant="default" size="lg" className="bg-blue-600 text-white hover:bg-blue-700">Explore Membership Options</Button>
+            <Button variant="default" size="lg" className="bg-blue-600 text-white hover:bg-blue-700" onClick={scrollToWaitlist}>Explore Membership Options</Button>
           </div>
         </section>
 
@@ -82,7 +130,7 @@ export default function TherapyHub() {
                   <p className="text-4xl font-bold text-blue-600">$20<span className="text-xl font-normal">/hour</span></p>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">Book Now</Button>
+                  <Button className="w-full bg-blue-600 text-white hover:bg-blue-700" onClick={scrollToWaitlist}>Book Now</Button>
                 </CardFooter>
               </Card>
               <Card className="border-2 border-green-200 hover:shadow-lg transition-shadow">
@@ -94,7 +142,7 @@ export default function TherapyHub() {
                   <p className="text-4xl font-bold text-green-600">$50<span className="text-xl font-normal">/day</span></p>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-green-600 text-white hover:bg-green-700">Book Now</Button>
+                  <Button className="w-full bg-green-600 text-white hover:bg-green-700" onClick={scrollToWaitlist}>Book Now</Button>
                 </CardFooter>
               </Card>
               <Card className="border-2 border-yellow-200 hover:shadow-lg transition-shadow">
@@ -106,10 +154,48 @@ export default function TherapyHub() {
                   <p className="text-4xl font-bold text-yellow-600">$600<span className="text-xl font-normal">/month</span></p>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full bg-yellow-600 text-white hover:bg-yellow-700">Subscribe</Button>
+                  <Button className="w-full bg-yellow-600 text-white hover:bg-yellow-700" onClick={scrollToWaitlist}>Subscribe</Button>
                 </CardFooter>
               </Card>
             </div>
+          </div>
+        </section>
+
+        <section id="waitlist" className="py-20 bg-blue-50">
+          <div className="container mx-auto px-4 max-w-md">
+            <Card className="border-2 border-blue-200">
+              <CardHeader>
+                <CardTitle className="text-center text-blue-600">Join Our Waitlist</CardTitle>
+                <CardDescription className="text-center">
+                  Be the first to know when we launch in your area
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col gap-4">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full"
+                    disabled={isSubmitting}
+                  />
+                  {status.error && (
+                    <p className="text-red-500 text-sm text-center">{status.error}</p>
+                  )}
+                  {status.message && (
+                    <p className="text-green-500 text-sm text-center">{status.message}</p>
+                  )}
+                  <Button
+                    className="w-full bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+                    onClick={handleWaitlistSubmit}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>
@@ -117,8 +203,6 @@ export default function TherapyHub() {
       <footer className="bg-gray-800 text-white py-12">
         <div className="container mx-auto px-4 text-center">
           <p>&copy; 2024 TherapyHub. All rights reserved.</p>
-          <p className="mt-2">123 Therapy Street, Wellness City, WC 12345</p>
-          <p className="mt-2">contact@therapyhub.com | (555) 123-4567</p>
         </div>
       </footer>
     </div>
